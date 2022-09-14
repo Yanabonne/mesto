@@ -4,6 +4,7 @@
     border: 1px solid #FFFFFF;
     width: 10px;
     height: 10px;
+    transition: opacity 1s ease;
 }
 
 @media screen and (max-width: 600px) {
@@ -12,4 +13,8 @@
         height: 7.5px;
         padding: 5.25px;
     }
+}
+
+.profile__edit:hover {
+    opacity: 0.6;
 }

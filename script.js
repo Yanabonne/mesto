@@ -36,11 +36,11 @@ let heart = document.querySelector('.photo-grid__like');
 
 function like() {
     if (heart.classList.contains('photo-grid__like_active') === false) {
-        heart.src = '/images/like-button_black.svg';
+        heart.src = 'images/like-button_black.svg';
         heart.classList.add('photo-grid__like_active');
     }
     else {
-        heart.src = '/images/like-button.svg';
+        heart.src = 'images/like-button.svg';
         heart.classList.remove('photo-grid__like_active');
     }
 }

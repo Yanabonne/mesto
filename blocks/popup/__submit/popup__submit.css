@@ -1,0 +1,14 @@
+.popup__submit {
+    min-height: 50px;
+    background-color: black;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__submit {
+        font-size: 14px;
+    }
+}

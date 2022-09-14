@@ -7,8 +7,83 @@
   <link rel="stylesheet" href="pages/index.css">
 </head>
 <body>
-    <div class="page">
-        
+  <div class="page">
+    <div class="popup">
+      <div class="popup__background"></div>
+      <div class="popup__form">
+        <img src="/images/close.svg" class="popup__close">
+        <p class="popup__title">Редактировать профиль</p>
+        <input type="text" class="popup__name" value="Жак-Ив Кусто">
+        <input type="text" class="popup__description" value="Исследователь океана">
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </div>
     </div>
+    <header class="header">
+      <img class="header__logo" src="/images/logo_white.svg">
+      <hr class="header__line" />
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__info">
+          <img class="profile__picture" src="/images/profile__picture.png">
+          <div class="profile__personal">
+            <div class="profile__name-edit">
+              <p class="profile__name">Жак-Ив Кусто</p>
+              <img class="profile__edit" src="/images/edit-pen.svg">
+            </div>
+            <p class="profile__description">Исследователь океана</p>
+          </div>
+        </div>
+        <img class="profile__add-button" src="/images/plus-button.svg">
+      </section>
+      <section class="photo-grid">
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/karachaevsk.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Карачаевск</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/elbrus.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Гора Эльбрус</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/dombai.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Домбай</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/elbrus2.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Гора Эльбрус</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/dombai2.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Домбай</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+        <article class="photo-grid__item">
+          <img class="photo-grid__picture" src="/images/kar-ch.png">
+          <div class="photo-grid__info">
+            <p class="photo-grid__title">Карачаево-Черкессия</p>
+            <img class="photo-grid__like" src="/images/like-button.svg">
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022, Яна Морозова</p>
+    </footer>
+  </div>
 </body>
 </html>

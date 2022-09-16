@@ -6,6 +6,7 @@
     font-size: 18px;
     line-height: 1.22;
     transition: opacity 1s ease;
+    border-radius: 2px;
 }
 
 @media screen and (max-width: 600px) {

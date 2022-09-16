@@ -1,5 +1,4 @@
-.popup__description {
-    margin: 0 0 48px;
+.popup__text {
     font-family: inherit;
     font-weight: 400;
     font-size: 14px;
@@ -7,11 +6,6 @@
     padding-bottom: 13px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
-
-@media screen and (max-width: 600px) {
-    .popup__description {
-        font-size: 14px;
-        margin-bottom: 45px;
-    }
+    background-color: 0;
+    outline: 0;
 }

@@ -1,18 +1,9 @@
 .profile__edit {
     margin: 0;
-    padding: 7px;
-    border: 1px solid #FFFFFF;
-    width: 10px;
-    height: 10px;
     transition: opacity 1s ease;
-}
-
-@media screen and (max-width: 600px) {
-    .profile__edit {
-        width: 7.5px;
-        height: 7.5px;
-        padding: 5.25px;
-    }
+    background: 0;
+    border: 0;
+    font-size: 0;
 }
 
 .profile__edit:hover {

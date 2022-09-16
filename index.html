@@ -8,19 +8,8 @@
 </head>
 <body>
   <div class="page">
-    <div class="popup">
-      <div class="popup__background"></div>
-      <form class="popup__form">
-        <img src="images/close.svg" class="popup__close" alt="Крестик">
-        <p class="popup__title">Редактировать профиль</p>
-        <input type="text" class="popup__name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__description" value="Исследователь океана">
-        <button type="submit" class="popup__submit">Сохранить</button>
-      </form>
-    </div>
     <header class="header">
       <img class="header__logo" src="images/logo_white.svg" alt="Логотип">
-      <hr class="header__line" />
     </header>
     <main class="content">
       <section class="profile">
@@ -28,55 +17,55 @@
           <img class="profile__picture" src="images/profile__picture.png" alt="Фотография Кусто">
           <div class="profile__personal">
             <div class="profile__name-edit">
-              <p class="profile__name">Жак-Ив Кусто</p>
-              <img class="profile__edit" src="images/edit-pen.svg" alt="Иконка ручки">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit"><img class="profile__pen" src="images/edit-pen.svg" alt="Иконка ручки"></button>
             </div>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <img class="profile__add-button" src="images/plus-button.svg" alt="Иконка плюса">
+        <button type="button" class="profile__add-button"><img class="profile__plus" src="images/plus-button.svg" alt="Иконка плюса"></button>
       </section>
-      <section class="photo-grid">
+      <section class="photo-grid" aria-label="Секция с фотографиями">
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/karachaevsk.png" alt="Крепость в лесу">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Карачаевск</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Карачаевск</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/elbrus.png" alt="Гора на фоне пустынной равнине">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Гора Эльбрус</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Гора Эльбрус</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/dombai.png" alt="Заснеженные горы на фоне леса">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Домбай</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Домбай</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/elbrus2.png" alt="Гора на фоне пустынной равнине">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Гора Эльбрус</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Гора Эльбрус</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/dombai2.png" alt="Заснеженные горы на фоне леса">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Домбай</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Домбай</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
         <article class="photo-grid__item">
           <img class="photo-grid__picture" src="images/kar-ch.png" alt="Крепость в лесу">
           <div class="photo-grid__info">
-            <p class="photo-grid__title">Карачаево-Черкессия</p>
-            <img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко">
+            <h2 class="photo-grid__title">Карачаево-Черкессия</h2>
+            <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
           </div>
         </article>
       </section>
@@ -84,7 +73,16 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022, Яна Морозова</p>
     </footer>
+    <div class="popup">
+      <form class="popup__container" name="form">
+        <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__text popup__text_name" name="name">
+        <input type="text" class="popup__text popup__text_description" name="description">
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </form>
+    </div>
   </div>
-  <script src="script.js"></script>
+  <script src="scripts/script.js  "></script>
 </body>
 </html>

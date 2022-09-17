@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 900px) {
     .photo-grid {
         grid-template-columns: repeat(2, 282px);
         max-width: 581px;

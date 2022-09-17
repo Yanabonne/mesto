@@ -3,9 +3,9 @@ let crossButton = document.querySelector('.popup__close');
 let popup = document.querySelector('.popup');
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
-let popupName = document.querySelector('.popup__text_name');
-let popupDescription = document.querySelector('.popup__text_description');
-let popupForm = document.querySelector('.popup__container');
+let popupName = document.getElementById('popup-name');
+let popupDescription = document.getElementById('popup-description');
+let popupForm = document.querySelector('.form');
 
 function popupOpen() {
     popup.classList.add('popup_opened');

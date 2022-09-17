@@ -1,0 +1,22 @@
+.form__text {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+    padding-bottom: 13px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    margin: 0 0 30px;
+}
+
+.form__text:last-of-type {
+    margin: 0 0 48px;
+}
+
+@media screen and (max-width: 600px) {
+    .form__text:last-of-type {
+        margin-bottom: 45px;
+    }
+}

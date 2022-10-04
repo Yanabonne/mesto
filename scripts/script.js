@@ -1,20 +1,20 @@
-let penButton = document.querySelector('.profile__edit');
-let popup = document.querySelector('#popup-profile');
-let crossButton = popup.querySelector('.popup__close');
-let profileName = document.querySelector('.profile__name');
-let profileDescription = document.querySelector('.profile__description');
-let popupName = document.getElementById('popup-name');
-let popupDescription = document.getElementById('popup-description');
-let popupForm = popup.querySelector('.form');
+const penButton = document.querySelector('.profile__edit');
+const popup = document.querySelector('#popup-profile');
+const crossButton = popup.querySelector('.popup__close');
+const profileName = document.querySelector('.profile__name');
+const profileDescription = document.querySelector('.profile__description');
+const popupName = document.getElementById('popup-name');
+const popupDescription = document.getElementById('popup-description');
+const popupForm = popup.querySelector('.form');
 
-let plusButton = document.querySelector('.profile__add-button');
-let popupMesto = document.querySelector('#popup-mesto');
-let crossButtonMesto = popupMesto.querySelector('.popup__close');
-let popupMestoName = document.getElementById('popup-mesto-name');
-let popupMestoLink = document.getElementById('popup-link');
-let popupMestoForm = popupMesto.querySelector('.form');
+const plusButton = document.querySelector('.profile__add-button');
+const popupMesto = document.querySelector('#popup-mesto');
+const crossButtonMesto = popupMesto.querySelector('.popup__close');
+const popupMestoName = document.getElementById('popup-mesto-name');
+const popupMestoLink = document.getElementById('popup-link');
+const popupMestoForm = popupMesto.querySelector('.form');
 
-let hearts = document.querySelectorAll('.photo-grid__like');
+const hearts = document.querySelectorAll('.photo-grid__like');
 
 const initialCards = [
     {
@@ -43,19 +43,18 @@ const initialCards = [
     }
 ]; 
 
-const gridItem = document.querySelector('#photo-grid__item').content;
-let grid = document.querySelector('.photo-grid');
+const grid = document.querySelector('.photo-grid');
 
-const pictureItem = document.querySelector('#popup_picture').content;
+const popupPicture = document.querySelector('#popup_picture');
+const pictureClose = popupPicture.querySelector('.popup__close');
+const page = document.querySelector('.page');
 
-function popupOpen() {
-    popup.classList.add('popup_opened');
-    popupName.value = profileName.textContent;
-    popupDescription.value = profileDescription.textContent;
+function popupOpen(elem) {
+    elem.classList.add('popup_opened');
 }
 
-function popupClose() {
-    popup.classList.remove('popup_opened');
+function popupClose(elem) {
+    elem.classList.remove('popup_opened');
 }
 
 function changeInfo(evt) {
@@ -64,32 +63,17 @@ function changeInfo(evt) {
     profileName.textContent = popupName.value;
     profileDescription.textContent = popupDescription.value;
 
-    popupClose();
+    popupClose(popup);
 }
 
-function popupMestoOpen() {
-    popupMesto.classList.add('popup_opened');
-}
+function addMesto (link, mestoName) {
+    const gridCopy = document.querySelector('#photo-grid__item').content.cloneNode(true);
+    gridCopy.querySelector('.photo-grid__picture').setAttribute('src', link);
+    gridCopy.querySelector('.photo-grid__title').textContent = mestoName;
+    const photo = gridCopy.querySelector('.photo-grid__picture');
+    const trash = gridCopy.querySelector('.photo-grid__trash-button');
+    const heart = gridCopy.querySelector('.photo-grid__like');
 
-function popupMestoClose() {
-    popupMesto.classList.remove('popup_opened');
-}
-
-function addMesto(evt) {
-    evt.preventDefault();
-
-    let gridCopy = gridItem.cloneNode(true);
-    gridCopy.querySelector('.photo-grid__picture').setAttribute('src', popupMestoLink.value);
-    gridCopy.querySelector('.photo-grid__title').textContent = popupMestoName.value;
-    let photo = gridCopy.querySelector('.photo-grid__picture');
-    let trash = gridCopy.querySelector('.photo-grid__trash-button');
-    let heart = gridCopy.querySelector('.photo-grid__like');
-
-    let pictureCopy = pictureItem.cloneNode(true);
-    let popupPicture = pictureCopy.querySelector('.popup');
-    let pictureClose = pictureCopy.querySelector('.popup__close');
-    let page = document.querySelector('.page');
-    
     heart.addEventListener('click', function (evt) {
         const eventTarget = evt.target;        
         if (eventTarget.classList.contains('photo-grid__like_active')) {
@@ -107,77 +91,46 @@ function addMesto(evt) {
         eventTarget.parentElement.remove();
     });
 
-    pictureCopy.querySelector('.popup__photo').setAttribute('src', popupMestoLink.value);
-    pictureCopy.querySelector('.popup__figcaption').textContent = popupMestoName.value;
-
-    pictureClose.addEventListener('click', function () {
-        popupPicture.classList.remove('popup_opened');
+    photo.addEventListener('click', function(evt) {
+        const eventTarget = evt.target;
+        popupOpen(popupPicture);
+        popupPicture.querySelector('.popup__photo').setAttribute('src', eventTarget.src);
+        popupPicture.querySelector('.popup__figcaption').textContent = eventTarget.nextElementSibling.firstElementChild.textContent;
     });
-
-    page.append(pictureCopy);
-
-    photo.addEventListener('click', function() {
-        popupPicture.classList.add('popup_opened');
-    });
-
-    grid.prepend(gridCopy);
 
     popupMestoLink.value = '';
     popupMestoName.value = '';
-    
-    popupMestoClose();
+
+    popupClose(popupMesto);
+
+    return gridCopy;
 }
 
 for (let i = 0; i < 6; i++) {
-    let gridCopy = gridItem.cloneNode(true);
-    gridCopy.querySelector('.photo-grid__picture').setAttribute('src', initialCards[i].link);
-    gridCopy.querySelector('.photo-grid__title').textContent = initialCards[i].name;
-    let photo = gridCopy.querySelector('.photo-grid__picture');
-    let trash = gridCopy.querySelector('.photo-grid__trash-button');
-    let heart = gridCopy.querySelector('.photo-grid__like');
-
-    heart.addEventListener('click', function (evt) {
-        const eventTarget = evt.target;        
-        if (eventTarget.classList.contains('photo-grid__like_active')) {
-            eventTarget.src = 'images/like-button.svg';
-            eventTarget.classList.remove('photo-grid__like_active');
-        }
-        else {
-            eventTarget.src = 'images/like-button_black.svg';
-            eventTarget.classList.add('photo-grid__like_active');
-        }
-    });
-
-    trash.addEventListener('click', function (evt) {
-        const eventTarget = evt.target;  
-        eventTarget.parentElement.remove();
-    });
-
-    let pictureCopy = pictureItem.cloneNode(true);
-    let popupPicture = pictureCopy.querySelector('.popup');
-    let pictureClose = pictureCopy.querySelector('.popup__close');
-    let page = document.querySelector('.page');
-
-    pictureCopy.querySelector('.popup__photo').setAttribute('src', initialCards[i].link);
-    pictureCopy.querySelector('.popup__figcaption').textContent = initialCards[i].name;
-
-    pictureClose.addEventListener('click', function () {
-        popupPicture.classList.remove('popup_opened');
-    });
-
-    page.append(pictureCopy);
-
-    photo.addEventListener('click', function() {
-        popupPicture.classList.add('popup_opened');
-    });
-    
-    grid.prepend(gridCopy);
+    grid.prepend(addMesto(initialCards[i].link, initialCards[i].name));
 }
 
-penButton.addEventListener('click', popupOpen);
-crossButton.addEventListener('click', popupClose);
+penButton.addEventListener('click', function () {
+    popupName.value = profileName.textContent;
+    popupDescription.value = profileDescription.textContent;
+    popupOpen(popup);
+});
+crossButton.addEventListener('click', function () {
+    popupClose(popup);
+});
 popupForm.addEventListener('submit', changeInfo);
 
-plusButton.addEventListener('click', popupMestoOpen);
-crossButtonMesto.addEventListener('click', popupMestoClose);
-popupMestoForm.addEventListener('submit', addMesto);
+plusButton.addEventListener('click', function () {
+    popupOpen(popupMesto);
+});
+crossButtonMesto.addEventListener('click', function () {
+    popupClose(popupMesto);
+});
+popupMestoForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    grid.prepend(addMesto(popupMestoLink.value, popupMestoName.value));
+});
+
+pictureClose.addEventListener('click', function () {
+    popupClose(popupPicture);
+})

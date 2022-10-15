@@ -35,10 +35,14 @@
       <div class="popup__container">
         <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
         <form class="form" name="form">
-          <h2 class="form__title">Редактировать профиль</h2>
-          <input type="text" class="form__text" id="popup-name" name="name">
-          <input type="text" class="form__text" id="popup-description" name="description">
-          <button type="submit" class="form__submit">Сохранить</button>
+          <fieldset class="form__set">
+            <h2 class="form__title">Редактировать профиль</h2>
+            <input type="text" class="form__text" id="popup-name" name="name" required minlength="2" maxlength="40">
+            <span class="form__input-error popup-name-error"></span>
+            <input type="text" class="form__text" id="popup-description" name="description" required minlength="2" maxlength="200">
+            <span class="form__input-error popup-description-error"></span>
+            <button type="submit" class="form__submit">Сохранить</button>
+          </fieldset>
         </form>
       </div>
     </div>
@@ -46,17 +50,21 @@
       <div class="popup__container">
         <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
         <form class="form" name="form">
-          <h2 class="form__title">Новое место</h2>
-          <input type="text" class="form__text" id="popup-mesto-name" name="mesto" placeholder="Название">
-          <input type="url" class="form__text" id="popup-link" name="link" placeholder="Ссылка на картинку">
-          <button type="submit" class="form__submit">Создать</button>
+          <fieldset class="form__set">
+            <h2 class="form__title">Новое место</h2>
+            <input type="text" class="form__text" id="popup-mesto-name" name="mesto" placeholder="Название" required minlength="2" maxlength="30">
+            <span class="form__input-error popup-mesto-name-error"></span>
+            <input type="url" class="form__text" id="popup-link" name="link" placeholder="Ссылка на картинку" required>
+            <span class="form__input-error popup-link-error"></span>
+            <button type="submit" class="form__submit">Создать</button>
+          </fieldset>
         </form>
       </div>
     </div>
     <div id='popup_picture' class="popup popup_picture">
       <figure class="popup__figure">
         <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
-        <img src="https://images.unsplash.com/photo-1664286244781-32db99dd41a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80" class="popup__photo">
+        <img src="https://images.unsplash.com/photo-1664286244781-32db99dd41a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80" alt="" class="popup__photo">
         <figcaption class="popup__figcaption"></figcaption>
       </figure>
     </div>
@@ -72,5 +80,6 @@
     </template>
   </div>
   <script src="scripts/script.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>

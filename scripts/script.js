@@ -118,6 +118,11 @@ penButton.addEventListener('click', function () {
 crossButton.addEventListener('click', function () {
     popupClose(popup);
 });
+popup.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+        popupClose(popup);
+    };
+});
 popupForm.addEventListener('submit', changeInfo);
 
 plusButton.addEventListener('click', function () {
@@ -126,6 +131,11 @@ plusButton.addEventListener('click', function () {
 crossButtonMesto.addEventListener('click', function () {
     popupClose(popupMesto);
 });
+popupMesto.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+        popupClose(popupMesto);
+    };
+});
 popupMestoForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     grid.prepend(addMesto(popupMestoLink.value, popupMestoName.value));
@@ -133,4 +143,17 @@ popupMestoForm.addEventListener('submit', function (evt) {
 
 pictureClose.addEventListener('click', function () {
     popupClose(popupPicture);
-})
+});
+popupPicture.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+        popupClose(popupPicture);
+    };
+});
+
+document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+        popupClose(popup);
+        popupClose(popupMesto);
+        popupClose(popupPicture);
+    }
+});

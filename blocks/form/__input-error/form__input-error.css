@@ -1,0 +1,24 @@
+.form__input-error {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0;
+    color: #FF0000;
+    display: none;
+    margin: 0 0 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 358px;
+}
+
+.form__input-error:last-of-type {
+    margin: 0 0 31.34px;
+}
+
+@media screen and (max-width: 600px) {
+    .form__input-error:last-of-type {
+        max-width: 238px;
+        margin-bottom: 28.34px;
+    }
+}

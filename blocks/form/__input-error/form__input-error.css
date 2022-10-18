@@ -16,8 +16,13 @@
 }
 
 @media screen and (max-width: 600px) {
-    .form__input-error:last-of-type {
+    .form__input-error {
         max-width: 238px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .form__input-error:last-of-type {
         margin-bottom: 28.34px;
     }
 }

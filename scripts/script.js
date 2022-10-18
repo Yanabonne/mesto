@@ -1,20 +1,19 @@
 const penButton = document.querySelector('.profile__edit');
-const popup = document.querySelector('#popup-profile');
-const crossButton = popup.querySelector('.popup__close');
+const popupProfile = document.querySelector('#popup-profile');
+const crossButtonProfile = popupProfile.querySelector('.popup__close');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const popupName = document.getElementById('popup-name');
-const popupDescription = document.getElementById('popup-description');
-const popupForm = popup.querySelector('.form');
+const popupName = popupProfile.querySelector('#popup-name');
+const popupDescription = popupProfile.querySelector('#popup-description');
+const popupFormProfile = popupProfile.querySelector('.form');
+const submitButtonProfile = popupProfile.querySelector('.form__submit');
 
 const plusButton = document.querySelector('.profile__add-button');
 const popupMesto = document.querySelector('#popup-mesto');
 const crossButtonMesto = popupMesto.querySelector('.popup__close');
-const popupMestoName = document.getElementById('popup-mesto-name');
-const popupMestoLink = document.getElementById('popup-link');
+const popupMestoName = popupMesto.querySelector('#popup-mesto-name');
+const popupMestoLink = popupMesto.querySelector('#popup-link');
 const popupMestoForm = popupMesto.querySelector('.form');
-
-const hearts = document.querySelectorAll('.photo-grid__like');
 
 const initialCards = [
     {
@@ -44,17 +43,27 @@ const initialCards = [
 ]; 
 
 const grid = document.querySelector('.photo-grid');
+const gridItem = document.querySelector('#photo-grid__item');
 
 const popupPicture = document.querySelector('#popup_picture');
 const pictureClose = popupPicture.querySelector('.popup__close');
 const page = document.querySelector('.page');
 
-function popupOpen(elem) {
+function closeByEsc(evt) {
+    if (evt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_opened');
+      closePopup(openedPopup); 
+    }
+} 
+
+function openPopup(elem) {
     elem.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEsc)
 }
 
-function popupClose(elem) {
+function closePopup(elem) {
     elem.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEsc)
 }
 
 function changeInfo(evt) {
@@ -63,12 +72,13 @@ function changeInfo(evt) {
     profileName.textContent = popupName.value;
     profileDescription.textContent = popupDescription.value;
 
-    popupClose(popup);
+    closePopup(popupProfile);
 }
 
 function addMesto (link, mestoName) {
-    const gridCopy = document.querySelector('#photo-grid__item').content.cloneNode(true);
+    const gridCopy = gridItem.content.cloneNode(true);
     gridCopy.querySelector('.photo-grid__picture').setAttribute('src', link);
+    gridCopy.querySelector('.photo-grid__picture').setAttribute('alt', mestoName);
     gridCopy.querySelector('.photo-grid__title').textContent = mestoName;
     const photo = gridCopy.querySelector('.photo-grid__picture');
     const trash = gridCopy.querySelector('.photo-grid__trash-button');
@@ -78,32 +88,37 @@ function addMesto (link, mestoName) {
         const eventTarget = evt.target;        
         if (eventTarget.classList.contains('photo-grid__like_active')) {
             eventTarget.src = 'images/like-button.svg';
-            eventTarget.classList.remove('photo-grid__like_active');
         }
         else {
             eventTarget.src = 'images/like-button_black.svg';
-            eventTarget.classList.add('photo-grid__like_active');
         }
+        eventTarget.classList.toggle('photo-grid__like_active');
     });
 
     trash.addEventListener('click', function (evt) {
         const eventTarget = evt.target;  
-        eventTarget.parentElement.remove();
+        eventTarget.closest('.photo-grid__item').remove();
     });
 
     photo.addEventListener('click', function(evt) {
         const eventTarget = evt.target;
-        popupOpen(popupPicture);
+        openPopup(popupPicture);
         popupPicture.querySelector('.popup__photo').setAttribute('src', eventTarget.src);
-        popupPicture.querySelector('.popup__figcaption').textContent = eventTarget.nextElementSibling.firstElementChild.textContent;
+        popupPicture.querySelector('.popup__photo').setAttribute('alt', eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent);
+        popupPicture.querySelector('.popup__figcaption').textContent = eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent;
     });
 
-    popupMestoLink.value = '';
-    popupMestoName.value = '';
-
-    popupClose(popupMesto);
-
     return gridCopy;
+}
+
+function removeValidationMessage (item) {
+    const inputs = Array.from(item.querySelectorAll('.form__text'));
+    inputs.forEach(function (input) {
+        if (input.classList.contains('form__text_type_error')) {
+            input.classList.remove('form__text_type_error');
+            item.querySelector(`.${input.id}-error`).classList.remove('form__input-error_active');
+        }
+    });
 }
 
 for (let i = 0; i < 6; i++) {
@@ -113,47 +128,54 @@ for (let i = 0; i < 6; i++) {
 penButton.addEventListener('click', function () {
     popupName.value = profileName.textContent;
     popupDescription.value = profileDescription.textContent;
-    popupOpen(popup);
+    openPopup(popupProfile);
 });
-crossButton.addEventListener('click', function () {
-    popupClose(popup);
+crossButtonProfile.addEventListener('click', function (evt) {
+    removeValidationMessage(evt.target.closest('.popup'));
+    if (submitButtonProfile.hasAttribute('disabled')) {
+        submitButtonProfile.removeAttribute('disabled');
+        submitButtonProfile.classList.remove('form__submit_inactive');
+    };
+    closePopup(popupProfile);
 });
-popup.addEventListener('click', function (evt) {
+popupProfile.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
-        popupClose(popup);
+        removeValidationMessage(evt.target);
+        if (submitButtonProfile.hasAttribute('disabled')) {
+            submitButtonProfile.removeAttribute('disabled');
+            submitButtonProfile.classList.remove('form__submit_inactive');
+        };
+        closePopup(popupProfile);
     };
 });
-popupForm.addEventListener('submit', changeInfo);
+popupFormProfile.addEventListener('submit', changeInfo);
 
 plusButton.addEventListener('click', function () {
-    popupOpen(popupMesto);
+    openPopup(popupMesto);
 });
-crossButtonMesto.addEventListener('click', function () {
-    popupClose(popupMesto);
+crossButtonMesto.addEventListener('click', function (evt) {
+    removeValidationMessage(evt.target.closest('.popup'));
+    closePopup(popupMesto);
 });
 popupMesto.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
-        popupClose(popupMesto);
+        removeValidationMessage(evt.target);
+        closePopup(popupMesto);
     };
 });
 popupMestoForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     grid.prepend(addMesto(popupMestoLink.value, popupMestoName.value));
+    popupMestoLink.value = '';
+    popupMestoName.value = '';
+    closePopup(popupMesto);
 });
 
 pictureClose.addEventListener('click', function () {
-    popupClose(popupPicture);
+    closePopup(popupPicture);
 });
 popupPicture.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
-        popupClose(popupPicture);
+        closePopup(popupPicture);
     };
-});
-
-document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-        popupClose(popup);
-        popupClose(popupMesto);
-        popupClose(popupPicture);
-    }
 });

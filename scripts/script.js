@@ -6,7 +6,6 @@ const profileDescription = document.querySelector('.profile__description');
 const popupName = popupProfile.querySelector('#popup-name');
 const popupDescription = popupProfile.querySelector('#popup-description');
 const popupFormProfile = popupProfile.querySelector('.form');
-const submitButtonProfile = popupProfile.querySelector('.form__submit');
 
 const plusButton = document.querySelector('.profile__add-button');
 const popupMesto = document.querySelector('#popup-mesto');
@@ -14,6 +13,7 @@ const crossButtonMesto = popupMesto.querySelector('.popup__close');
 const popupMestoName = popupMesto.querySelector('#popup-mesto-name');
 const popupMestoLink = popupMesto.querySelector('#popup-link');
 const popupMestoForm = popupMesto.querySelector('.form');
+const submitButtonMesto = popupMesto.querySelector('.form__submit');
 
 const initialCards = [
     {
@@ -48,6 +48,8 @@ const gridItem = document.querySelector('#photo-grid__item');
 const popupPicture = document.querySelector('#popup_picture');
 const pictureClose = popupPicture.querySelector('.popup__close');
 const page = document.querySelector('.page');
+const photoPopupPicture = popupPicture.querySelector('.popup__photo');
+const captionPopupPicture = popupPicture.querySelector('.popup__figcaption');
 
 function closeByEsc(evt) {
     if (evt.key === 'Escape') {
@@ -77,10 +79,10 @@ function changeInfo(evt) {
 
 function addMesto (link, mestoName) {
     const gridCopy = gridItem.content.cloneNode(true);
-    gridCopy.querySelector('.photo-grid__picture').setAttribute('src', link);
-    gridCopy.querySelector('.photo-grid__picture').setAttribute('alt', mestoName);
-    gridCopy.querySelector('.photo-grid__title').textContent = mestoName;
     const photo = gridCopy.querySelector('.photo-grid__picture');
+    photo.setAttribute('src', link);
+    photo.setAttribute('alt', mestoName);
+    gridCopy.querySelector('.photo-grid__title').textContent = mestoName;
     const trash = gridCopy.querySelector('.photo-grid__trash-button');
     const heart = gridCopy.querySelector('.photo-grid__like');
 
@@ -103,22 +105,12 @@ function addMesto (link, mestoName) {
     photo.addEventListener('click', function(evt) {
         const eventTarget = evt.target;
         openPopup(popupPicture);
-        popupPicture.querySelector('.popup__photo').setAttribute('src', eventTarget.src);
-        popupPicture.querySelector('.popup__photo').setAttribute('alt', eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent);
-        popupPicture.querySelector('.popup__figcaption').textContent = eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent;
+        photoPopupPicture.setAttribute('src', eventTarget.src);
+        photoPopupPicture.setAttribute('alt', eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent);
+        captionPopupPicture.textContent = eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent;
     });
 
     return gridCopy;
-}
-
-function removeValidationMessage (item) {
-    const inputs = Array.from(item.querySelectorAll('.form__text'));
-    inputs.forEach(function (input) {
-        if (input.classList.contains('form__text_type_error')) {
-            input.classList.remove('form__text_type_error');
-            item.querySelector(`.${input.id}-error`).classList.remove('form__input-error_active');
-        }
-    });
 }
 
 for (let i = 0; i < 6; i++) {
@@ -131,20 +123,10 @@ penButton.addEventListener('click', function () {
     openPopup(popupProfile);
 });
 crossButtonProfile.addEventListener('click', function (evt) {
-    removeValidationMessage(evt.target.closest('.popup'));
-    if (submitButtonProfile.hasAttribute('disabled')) {
-        submitButtonProfile.removeAttribute('disabled');
-        submitButtonProfile.classList.remove('form__submit_inactive');
-    };
     closePopup(popupProfile);
 });
 popupProfile.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
-        removeValidationMessage(evt.target);
-        if (submitButtonProfile.hasAttribute('disabled')) {
-            submitButtonProfile.removeAttribute('disabled');
-            submitButtonProfile.classList.remove('form__submit_inactive');
-        };
         closePopup(popupProfile);
     };
 });
@@ -154,12 +136,10 @@ plusButton.addEventListener('click', function () {
     openPopup(popupMesto);
 });
 crossButtonMesto.addEventListener('click', function (evt) {
-    removeValidationMessage(evt.target.closest('.popup'));
     closePopup(popupMesto);
 });
 popupMesto.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
-        removeValidationMessage(evt.target);
         closePopup(popupMesto);
     };
 });
@@ -169,6 +149,9 @@ popupMestoForm.addEventListener('submit', function (evt) {
     popupMestoLink.value = '';
     popupMestoName.value = '';
     closePopup(popupMesto);
+    submitButtonMesto.setAttribute('disabled', true);
+    submitButtonMesto.classList.add('form__submit_inactive');
+
 });
 
 pictureClose.addEventListener('click', function () {

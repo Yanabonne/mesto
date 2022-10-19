@@ -5,9 +5,6 @@
     color: #FF0000;
     display: none;
     margin: 0 0 13px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     max-width: 358px;
 }
 

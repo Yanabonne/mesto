@@ -10,7 +10,7 @@
 }
 
 .form__input-error:last-of-type {
-    margin-bottom: 18.34px;
+    margin-bottom: 18px;
 }
 
 @media screen and (max-width: 600px) {

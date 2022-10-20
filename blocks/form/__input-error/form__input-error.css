@@ -3,13 +3,14 @@
     font-size: 12px;
     line-height: 1.25;
     color: #FF0000;
-    display: none;
-    margin: 0 0 13px;
+    display: block;
+    margin: 0;
     max-width: 358px;
+    min-height: 30px;
 }
 
 .form__input-error:last-of-type {
-    margin: 0 0 31.34px;
+    margin-bottom: 18.34px;
 }
 
 @media screen and (max-width: 600px) {
@@ -20,6 +21,6 @@
 
 @media screen and (max-width: 600px) {
     .form__input-error:last-of-type {
-        margin-bottom: 28.34px;
+        margin-bottom: 15px;
     }
 }

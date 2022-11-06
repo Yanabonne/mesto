@@ -15,6 +15,14 @@ const popupMestoLink = popupMesto.querySelector('#popup-link');
 const popupMestoForm = popupMesto.querySelector('.form');
 const submitButtonMesto = popupMesto.querySelector('.form__submit');
 
+const popupPicture = document.querySelector('#popup_picture');
+const pictureClose = popupPicture.querySelector('.popup__close');
+const page = document.querySelector('.page');
+const photoPopupPicture = popupPicture.querySelector('.popup__photo');
+const captionPopupPicture = popupPicture.querySelector('.popup__figcaption');
+
+const grid = document.querySelector('.photo-grid');
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -40,16 +48,7 @@ const initialCards = [
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-]; 
-
-const grid = document.querySelector('.photo-grid');
-const gridItem = document.querySelector('#photo-grid__item');
-
-const popupPicture = document.querySelector('#popup_picture');
-const pictureClose = popupPicture.querySelector('.popup__close');
-const page = document.querySelector('.page');
-const photoPopupPicture = popupPicture.querySelector('.popup__photo');
-const captionPopupPicture = popupPicture.querySelector('.popup__figcaption');
+];
 
 function closeByEsc(evt) {
     if (evt.key === 'Escape') {
@@ -77,44 +76,15 @@ function changeInfo(evt) {
     closePopup(popupProfile);
 }
 
-function addMesto (link, mestoName) {
-    const gridCopy = gridItem.content.cloneNode(true);
-    const photo = gridCopy.querySelector('.photo-grid__picture');
-    photo.setAttribute('src', link);
-    photo.setAttribute('alt', mestoName);
-    gridCopy.querySelector('.photo-grid__title').textContent = mestoName;
-    const trash = gridCopy.querySelector('.photo-grid__trash-button');
-    const heart = gridCopy.querySelector('.photo-grid__like');
+export {openPopup, popupPicture, photoPopupPicture, captionPopupPicture};
 
-    heart.addEventListener('click', function (evt) {
-        const eventTarget = evt.target;        
-        if (eventTarget.classList.contains('photo-grid__like_active')) {
-            eventTarget.src = 'images/like-button.svg';
-        }
-        else {
-            eventTarget.src = 'images/like-button_black.svg';
-        }
-        eventTarget.classList.toggle('photo-grid__like_active');
-    });
+import Card from './Card.js';
 
-    trash.addEventListener('click', function (evt) {
-        const eventTarget = evt.target;  
-        eventTarget.closest('.photo-grid__item').remove();
-    });
-
-    photo.addEventListener('click', function(evt) {
-        const eventTarget = evt.target;
-        openPopup(popupPicture);
-        photoPopupPicture.setAttribute('src', eventTarget.src);
-        photoPopupPicture.setAttribute('alt', eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent);
-        captionPopupPicture.textContent = eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent;
-    });
-
-    return gridCopy;
-}
+import FormValidator from './FormValidator.js';
 
 for (let i = 0; i < 6; i++) {
-    grid.prepend(addMesto(initialCards[i].link, initialCards[i].name));
+    const card = new Card (initialCards[i].name, initialCards[i].link, '#photo-grid__item');
+    grid.prepend(card.generateCard());
 }
 
 penButton.addEventListener('click', function () {
@@ -145,13 +115,13 @@ popupMesto.addEventListener('click', function (evt) {
 });
 popupMestoForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    grid.prepend(addMesto(popupMestoLink.value, popupMestoName.value));
+    const card = new Card (popupMestoName.value, popupMestoLink.value, '#photo-grid__item');
+    grid.prepend(card.generateCard());
     popupMestoLink.value = '';
     popupMestoName.value = '';
     closePopup(popupMesto);
     submitButtonMesto.setAttribute('disabled', true);
     submitButtonMesto.classList.add('form__submit_inactive');
-
 });
 
 pictureClose.addEventListener('click', function () {
@@ -162,3 +132,19 @@ popupPicture.addEventListener('click', function (evt) {
         closePopup(popupPicture);
     };
 });
+
+const formValidatorProfile = new FormValidator ({
+    inputSelector: '.form__text',
+    submitButtonSelector: '.form__submit',
+    inactiveButtonClass: 'form__submit_inactive',
+    inputErrorClass: 'form__text_type_error'
+}, '#form-profile');
+formValidatorProfile.enableValidation();
+
+const formValidatorMesto = new FormValidator ({
+    inputSelector: '.form__text',
+    submitButtonSelector: '.form__submit',
+    inactiveButtonClass: 'form__submit_inactive',
+    inputErrorClass: 'form__text_type_error'
+}, '#form-mesto');
+formValidatorMesto.enableValidation();

@@ -1,3 +1,7 @@
+import Card from './Card.js';
+
+import {formValidator} from './FormValidator.js';
+
 const penButton = document.querySelector('.profile__edit');
 const popupProfile = document.querySelector('#popup-profile');
 const crossButtonProfile = popupProfile.querySelector('.popup__close');
@@ -17,7 +21,6 @@ const submitButtonMesto = popupMesto.querySelector('.form__submit');
 
 const popupPicture = document.querySelector('#popup_picture');
 const pictureClose = popupPicture.querySelector('.popup__close');
-const page = document.querySelector('.page');
 const photoPopupPicture = popupPicture.querySelector('.popup__photo');
 const captionPopupPicture = popupPicture.querySelector('.popup__figcaption');
 
@@ -76,15 +79,21 @@ function changeInfo(evt) {
     closePopup(popupProfile);
 }
 
-export {openPopup, popupPicture, photoPopupPicture, captionPopupPicture};
+function handleOpenPopupPicture (evt) {
+    const eventTarget = evt.target;
+    openPopup(popupPicture);
+    photoPopupPicture.setAttribute('src', eventTarget.src);
+    photoPopupPicture.setAttribute('alt', eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent);
+    captionPopupPicture.textContent = eventTarget.closest('.photo-grid__item').querySelector('.photo-grid__title').textContent;
+}
 
-import Card from './Card.js';
-
-import FormValidator from './FormValidator.js';
-
-for (let i = 0; i < 6; i++) {
-    const card = new Card (initialCards[i].name, initialCards[i].link, '#photo-grid__item');
+function createCard (name, link, templateSelector, handleOpenPopup) {
+    const card = new Card (name, link, templateSelector, handleOpenPopup);
     grid.prepend(card.generateCard());
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+    createCard(initialCards[i].name, initialCards[i].link, '#photo-grid__item', handleOpenPopupPicture);
 }
 
 penButton.addEventListener('click', function () {
@@ -115,13 +124,11 @@ popupMesto.addEventListener('click', function (evt) {
 });
 popupMestoForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    const card = new Card (popupMestoName.value, popupMestoLink.value, '#photo-grid__item');
-    grid.prepend(card.generateCard());
+    createCard(popupMestoName.value, popupMestoLink.value, '#photo-grid__item', handleOpenPopupPicture);
     popupMestoLink.value = '';
     popupMestoName.value = '';
     closePopup(popupMesto);
-    submitButtonMesto.setAttribute('disabled', true);
-    submitButtonMesto.classList.add('form__submit_inactive');
+    (new formValidator).disableButton(submitButtonMesto, 'form__submit_inactive');
 });
 
 pictureClose.addEventListener('click', function () {
@@ -133,18 +140,16 @@ popupPicture.addEventListener('click', function (evt) {
     };
 });
 
-const formValidatorProfile = new FormValidator ({
+new formValidator({
     inputSelector: '.form__text',
     submitButtonSelector: '.form__submit',
     inactiveButtonClass: 'form__submit_inactive',
     inputErrorClass: 'form__text_type_error'
-}, '#form-profile');
-formValidatorProfile.enableValidation();
+}, document.querySelector('#form-profile')).enableValidation();
 
-const formValidatorMesto = new FormValidator ({
+new formValidator({
     inputSelector: '.form__text',
     submitButtonSelector: '.form__submit',
     inactiveButtonClass: 'form__submit_inactive',
     inputErrorClass: 'form__text_type_error'
-}, '#form-mesto');
-formValidatorMesto.enableValidation();
+}, document.querySelector('#form-mesto')).enableValidation();

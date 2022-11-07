@@ -36,9 +36,9 @@
         <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
         <form class="form" id="form-profile" name="form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
-          <input type="text" class="form__text" id="popup-name" name="name" required minlength="2" maxlength="40" value="Жак-Ив Кусто">
+          <input type="text" class="form__text" id="popup-name" name="name" required minlength="2" maxlength="40" value="Жак-Ив Кусто" placeholder="Имя">
           <span class="form__input-error popup-name-error"></span>
-          <input type="text" class="form__text" id="popup-description" name="description" required minlength="2" maxlength="200" value="Исследователь океана">
+          <input type="text" class="form__text" id="popup-description" name="description" required minlength="2" maxlength="200" value="Исследователь океана" placeholder="О себе">
           <span class="form__input-error popup-description-error"></span>
           <button type="submit" class="form__submit">Сохранить</button>
         </form>
@@ -60,14 +60,14 @@
     <div id='popup_picture' class="popup popup_picture">
       <figure class="popup__figure">
         <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
-        <img src="https://images.unsplash.com/photo-1664286244781-32db99dd41a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80" alt="" class="popup__photo">
+        <img src="#" alt="" class="popup__photo">
         <figcaption class="popup__figcaption"></figcaption>
       </figure>
     </div>
     <template id="photo-grid__item">
       <article class="photo-grid__item">
         <button type="button" class="photo-grid__trash-button"></button>
-        <img class="photo-grid__picture" src="https://images.unsplash.com/photo-1664286244781-32db99dd41a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80">
+        <img class="photo-grid__picture" src="#">
         <div class="photo-grid__info">
           <h2 class="photo-grid__title"></h2>
           <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
@@ -76,7 +76,5 @@
     </template>
   </div>
   <script src="scripts/index.js" type="module"></script>
-  <script src="scripts/Card.js" type="module"></script>
-  <script src="scripts/FormValidator.js" type="module"></script>
 </body>
 </html>

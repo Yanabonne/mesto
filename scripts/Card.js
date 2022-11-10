@@ -41,8 +41,8 @@ export default class Card {
             eventTarget.classList.toggle('photo-grid__like_active');
         });
 
-        photo.addEventListener('click', (evt) => {
-            this._handleOpenPopup(evt);
+        photo.addEventListener('click', () => {
+            this._handleOpenPopup(this._name, this._link);
         });
     }
 }

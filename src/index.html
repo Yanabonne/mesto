@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="pages/index.css">
+  <!-- <link rel="stylesheet" href="pages/index.css"> -->
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="images/logo_white.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/logo_white.svg')%>" alt="Логотип">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__picture" src="images/profile__picture.png" alt="Фотография Кусто">
+          <img class="profile__picture" src="<%=require('./images/profile__picture.png')%>" alt="Фотография Кусто">
           <div class="profile__personal">
             <div class="profile__name-edit">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button type="button" class="profile__edit"><img class="profile__pen" src="images/edit-pen.svg" alt="Иконка ручки"></button>
+              <button type="button" class="profile__edit"><img class="profile__pen" src="<%=require('./images/edit-pen.svg')%>" alt="Иконка ручки"></button>
             </div>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button type="button" class="profile__add-button"><img class="profile__plus" src="images/plus-button.svg" alt="Иконка плюса"></button>
+        <button type="button" class="profile__add-button"><img class="profile__plus" src="<%=require('./images/plus-button.svg')%>" alt="Иконка плюса"></button>
       </section>
       <section class="photo-grid" aria-label="Секция с фотографиями">
       </section>
@@ -33,7 +33,7 @@
     </footer>
     <div class="popup" id="popup-profile">
       <div class="popup__container">
-        <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
+        <button type="button" class="popup__close"><img src="<%=require('./images/close.svg')%>" class="popup__cross" alt="Крестик"></button>
         <form class="form" id="form-profile" name="form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <input type="text" class="form__text" id="popup-name" name="name" required minlength="2" maxlength="40" value="Жак-Ив Кусто" placeholder="Имя">
@@ -46,7 +46,7 @@
     </div>
     <div class="popup" id="popup-mesto">
       <div class="popup__container">
-        <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
+        <button type="button" class="popup__close"><img src="<%=require('./images/close.svg')%>" class="popup__cross" alt="Крестик"></button>
         <form class="form" id="form-mesto" name="form" novalidate>
           <h2 class="form__title">Новое место</h2>
           <input type="text" class="form__text" id="popup-mesto-name" name="mesto" placeholder="Название" required minlength="2" maxlength="30">
@@ -59,7 +59,7 @@
     </div>
     <div id='popup_picture' class="popup popup_picture">
       <figure class="popup__figure">
-        <button type="button" class="popup__close"><img src="images/close.svg" class="popup__cross" alt="Крестик"></button>
+        <button type="button" class="popup__close"><img src="<%=require('./images/close.svg')%>" class="popup__cross" alt="Крестик"></button>
         <img src="#" alt="" class="popup__photo">
         <figcaption class="popup__figcaption"></figcaption>
       </figure>
@@ -70,11 +70,11 @@
         <img class="photo-grid__picture" src="#">
         <div class="photo-grid__info">
           <h2 class="photo-grid__title"></h2>
-          <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="images/like-button.svg" alt="Кнопка-сердечко"></button>
+          <button type="button" class="photo-grid__button"><img class="photo-grid__like" src="<%=require('./images/like-button.svg')%>" alt="Кнопка-сердечко"></button>
         </div>
       </article>
     </template>
   </div>
-  <script src="scripts/index.js" type="module"></script>
+  <!-- <script src="pages/index.js" type="module"></script> -->
 </body>
 </html>

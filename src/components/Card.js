@@ -1,9 +1,12 @@
+import likeButton from '../images/like-button.svg';
+import likeButttonBlack from '../images/like-button_black.svg';
+
 export default class Card {
-    constructor (name, link, templateSelector, handleOpenPopup) {
+    constructor (name, link, templateSelector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
-        this._handleOpenPopup = handleOpenPopup;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -37,12 +40,12 @@ export default class Card {
 
         this._element.querySelector('.photo-grid__like').addEventListener('click', function (evt) {
             const eventTarget = evt.target;        
-            eventTarget.src = eventTarget.classList.contains('photo-grid__like_active') ? 'images/like-button.svg' : 'images/like-button_black.svg';
+            eventTarget.src = eventTarget.classList.contains('photo-grid__like_active') ? likeButton : likeButttonBlack;
             eventTarget.classList.toggle('photo-grid__like_active');
         });
 
         photo.addEventListener('click', () => {
-            this._handleOpenPopup(this._name, this._link);
+            this._handleCardClick(this._name, this._link);
         });
     }
 }

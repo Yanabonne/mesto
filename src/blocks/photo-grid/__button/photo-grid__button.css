@@ -1,9 +1,9 @@
 .photo-grid__button {
-    font-size: 0;
-    background: none;
-    border: none;
-    outline: none;
-    margin: 30px 20px 30px 0;
-    padding: 0;
-    cursor: pointer;
+  font-size: 0;
+  background: none;
+  border: none;
+  outline: none;
+  margin: 30px 20px 30px 0;
+  padding: 0;
+  cursor: pointer;
 }

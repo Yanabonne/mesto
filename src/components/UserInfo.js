@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor(nameSelector, descriptionSelector) {
+  constructor(nameSelector, descriptionSelector, imageSelector) {
     this._nameSelector = nameSelector;
     this._descriptionSelector = descriptionSelector;
+    this._image = document.querySelector(imageSelector);
   }
 
   getUserInfo() {
@@ -13,7 +14,13 @@ export default class UserInfo {
     };
   }
 
+  setUserProfile(image) {
+    this._image.src = image;
+  }
+
   setUserInfo(data) {
+    this._name = document.querySelector(this._nameSelector);
+    this._description = document.querySelector(this._descriptionSelector);
     this._name.textContent = data.popupName;
     this._description.textContent = data.popupDescription;
   }

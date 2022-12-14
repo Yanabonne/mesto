@@ -3,10 +3,10 @@ export default class UserInfo {
     this._nameSelector = nameSelector;
     this._descriptionSelector = descriptionSelector;
     this._image = document.querySelector(imageSelector);
+    this._name = document.querySelector(this._nameSelector);
   }
 
   getUserInfo() {
-    this._name = document.querySelector(this._nameSelector);
     this._description = document.querySelector(this._descriptionSelector);
     return {
       name: this._name.textContent,
@@ -14,7 +14,7 @@ export default class UserInfo {
     };
   }
 
-  setUserProfile(image) {
+  setUserAvatar(image) {
     this._image.src = image;
   }
 

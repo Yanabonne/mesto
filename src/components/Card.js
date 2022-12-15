@@ -3,6 +3,8 @@ import likeButttonBlack from "../images/like-button_black.svg";
 
 export default class Card {
   constructor(
+    userId,
+    cardData,
     name,
     link,
     templateSelector,
@@ -10,8 +12,11 @@ export default class Card {
     likes,
     handleTrashClick,
     dislikeCard,
-    likeCard
+    likeCard,
+    deleteTrashButton
   ) {
+    this._userId = userId;
+    this._cardData = cardData;
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
@@ -20,9 +25,11 @@ export default class Card {
     this._handleTrashClick = handleTrashClick;
     this._dislikeCard = dislikeCard;
     this._likeCard = likeCard;
-    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this._deleteTrashButton = deleteTrashButton;
+    this.updateLikes = this.updateLikes.bind(this);
     this.deleteButtonHandler = this.deleteButtonHandler.bind(this);
     this.removeCard = this.removeCard.bind(this);
+    this.deleteButtonHandler = this.deleteButtonHandler.bind(this);
   }
 
   _getTemplate() {
@@ -46,20 +53,21 @@ export default class Card {
     this._likesCount.textContent = this._likes;
 
     this._setEventListeners();
+    this._deleteTrashButton();
+    this.checkIfLiked(this._cardData);
 
     return this._element;
   }
 
-  handleLikeClick(res) {
+  updateLikes(res) {
     if (this._like.classList.contains("photo-grid__like_active")) {
-      this._likesCount.textContent = res.likes.length;
       this._like.classList.toggle("photo-grid__like_active");
       this._like.src = likeButton;
     } else {
-      this._likesCount.textContent = res.likes.length;
       this._like.classList.toggle("photo-grid__like_active");
       this._like.src = likeButttonBlack;
     }
+    this._likesCount.textContent = res.likes.length;
   }
 
   removeCard() {
@@ -89,7 +97,7 @@ export default class Card {
   }
 
   deleteButtonHandler(resUser, getCardOwnerInfo) {
-    if (!(getCardOwnerInfo.owner.name === resUser.name)) {
+    if (getCardOwnerInfo.owner._id !== resUser._id) {
       this._element.querySelector(".photo-grid__trash-button").style.display =
         "none";
     }
@@ -97,7 +105,7 @@ export default class Card {
 
   checkIfLiked(getCardInfo) {
     const isLiked = getCardInfo.likes.some((item) => {
-      return item._id === "62c4daea2d2ca20c1aee6e8b";
+      return item._id === this._userId;
     });
     if (isLiked) {
       this._like.src = likeButttonBlack;

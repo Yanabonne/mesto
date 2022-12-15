@@ -52,10 +52,8 @@ const userInfoElement = new UserInfo(
   ".profile__description",
   ".profile__picture"
 );
-const profilePopup = new PopupWithForm("#popup-profile", (evt) => {
-  evt.preventDefault();
+const profilePopup = new PopupWithForm("#popup-profile", (inputs) => {
   profilePopup.renderLoading(true, "Сохранить");
-  const inputs = profilePopup.getInputValues();
 
   api
     .sendUserInfo({
@@ -91,18 +89,18 @@ const popupImageHandler = new PopupWithImage("#popup_picture");
 popupImageHandler.setEventListeners();
 
 // Delete card popup
-const popupDeleteCardHandler = new PopupWithConfirmation("#popup-delete");
+const confirmationPopup = new PopupWithConfirmation("#popup-delete");
+
+confirmationPopup.setEventListeners();
 
 // Profile Image popup
-const avatarPopup = new PopupWithForm("#popup-profile-image", (evt) => {
-  evt.preventDefault();
+const avatarPopup = new PopupWithForm("#popup-profile-image", (inputs) => {
   avatarPopup.renderLoading(true, "Сохранить");
-  const inputs = avatarPopup.getInputValues();
 
   api
     .sendAvatarInfo(inputs[0])
     .then((res) => {
-      userInfoElement.setUserAvatar(`${res.avatar}`);
+      userInfoElement.setUserAvatar(res.avatar);
       avatarPopup.close();
     })
     .catch((err) => {
@@ -118,20 +116,23 @@ penButtonProfileImage.addEventListener("click", avatarPopup.open);
 // Mesto popup opening and closing logic
 const cardsContainer = new Section(
   {
-    renderer: (item) => {
+    renderer: (cardData) => {
       const card = new Card(
-        item.name,
-        item.link,
+        "62c4daea2d2ca20c1aee6e8b",
+        cardData,
+        cardData.name,
+        cardData.link,
         "#photo-grid__item",
         popupImageHandler.open,
-        item.likes.length,
+        cardData.likes.length,
         () => {
-          popupDeleteCardHandler.open();
-          popupDeleteCardHandler.setEventListeners(() => {
+          confirmationPopup.open();
+          confirmationPopup.setCallback(() => {
             api
-              .deleteCard(item._id)
+              .deleteCard(cardData._id)
               .then(() => {
                 card.removeCard();
+                confirmationPopup.close();
               })
               .catch((err) => {
                 console.log(err);
@@ -140,9 +141,9 @@ const cardsContainer = new Section(
         },
         () => {
           api
-            .likeHandler(item._id, true)
+            .likeHandler(cardData._id, true)
             .then((res) => {
-              card.handleLikeClick(res);
+              card.updateLikes(res);
             })
             .catch((err) => {
               console.log(err);
@@ -150,35 +151,33 @@ const cardsContainer = new Section(
         },
         () => {
           api
-            .likeHandler(item._id, false)
+            .likeHandler(cardData._id, false)
             .then((res) => {
-              card.handleLikeClick(res);
+              card.updateLikes(res);
             })
             .catch((err) => {
               console.log(err);
             });
-        }
+        },
+        () => {
+          api
+            .getUserInfo()
+            .then((resUser) => {
+              card.deleteButtonHandler(resUser, cardData);
+            })
+            .catch((err) => {
+              console.log(err);
+            })}
       );
       const cardElement = card.generateCard();
-      api
-        .getUserInfo()
-        .then((resUser) => {
-          card.deleteButtonHandler(resUser, item);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      card.checkIfLiked(item);
       cardsContainer.addItem(cardElement);
     },
   },
   ".photo-grid"
 );
 
-const cardPopup = new PopupWithForm("#popup-mesto", (evt) => {
-  evt.preventDefault();
+const cardPopup = new PopupWithForm("#popup-mesto", (inputs) => {
   cardPopup.renderLoading(true, "Создать");
-  const inputs = cardPopup.getInputValues();
 
   api
     .sendNewPostInfo({

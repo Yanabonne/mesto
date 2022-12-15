@@ -4,10 +4,10 @@ export default class UserInfo {
     this._descriptionSelector = descriptionSelector;
     this._image = document.querySelector(imageSelector);
     this._name = document.querySelector(this._nameSelector);
+    this._description = document.querySelector(this._descriptionSelector);
   }
 
   getUserInfo() {
-    this._description = document.querySelector(this._descriptionSelector);
     return {
       name: this._name.textContent,
       description: this._description.textContent,
@@ -19,8 +19,6 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-    this._name = document.querySelector(this._nameSelector);
-    this._description = document.querySelector(this._descriptionSelector);
     this._name.textContent = data.popupName;
     this._description.textContent = data.popupDescription;
   }

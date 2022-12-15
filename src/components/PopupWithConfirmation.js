@@ -8,11 +8,13 @@ export default class PopupWithConfirmation extends Popup {
   }
   
   setCallback(submitCB) {
-    this._handleSubmit = submitCB();
+    this._handleSubmit = submitCB;
   }
 
   setEventListeners() {
-    this._button.addEventListener("click", this._handleSubmit);
+    this._button.addEventListener("click", () => {
+      this._handleSubmit();
+    });
     super.setEventListeners();
   }
 }

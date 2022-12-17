@@ -5,31 +5,25 @@ export default class Card {
   constructor(
     userId,
     cardData,
-    name,
-    link,
     templateSelector,
     handleCardClick,
     likes,
     handleTrashClick,
     dislikeCard,
-    likeCard,
-    deleteTrashButton
+    likeCard
   ) {
     this._userId = userId;
     this._cardData = cardData;
-    this._name = name;
-    this._link = link;
+    this._name = this._cardData.name;
+    this._link = this._cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._likes = likes;
     this._handleTrashClick = handleTrashClick;
     this._dislikeCard = dislikeCard;
     this._likeCard = likeCard;
-    this._deleteTrashButton = deleteTrashButton;
     this.updateLikes = this.updateLikes.bind(this);
-    this.deleteButtonHandler = this.deleteButtonHandler.bind(this);
     this.removeCard = this.removeCard.bind(this);
-    this.deleteButtonHandler = this.deleteButtonHandler.bind(this);
   }
 
   _getTemplate() {
@@ -53,8 +47,8 @@ export default class Card {
     this._likesCount.textContent = this._likes;
 
     this._setEventListeners();
-    this._deleteTrashButton();
-    this.checkIfLiked(this._cardData);
+    this._checkDeleteButton();
+    this._checkIfLiked();
 
     return this._element;
   }
@@ -96,15 +90,15 @@ export default class Card {
     });
   }
 
-  deleteButtonHandler(resUser, getCardOwnerInfo) {
-    if (getCardOwnerInfo.owner._id !== resUser._id) {
+  _checkDeleteButton() {
+    if (this._cardData.owner._id !== this._userId) {
       this._element.querySelector(".photo-grid__trash-button").style.display =
         "none";
     }
   }
 
-  checkIfLiked(getCardInfo) {
-    const isLiked = getCardInfo.likes.some((item) => {
+  _checkIfLiked() {
+    const isLiked = this._cardData.likes.some((item) => {
       return item._id === this._userId;
     });
     if (isLiked) {

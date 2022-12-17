@@ -6,7 +6,7 @@ export default class Api {
     this.getUserInfo = this.getUserInfo.bind(this);
     this.getInitialCards = this.getInitialCards.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
-    this.likeHandler = this.likeHandler.bind(this);
+    this.setCardLikeStatus = this.setCardLikeStatus.bind(this);
     this.sendAvatarInfo = this.sendAvatarInfo.bind(this);
     this._getResponseData = this._getResponseData.bind(this);
   }
@@ -56,7 +56,7 @@ export default class Api {
     }).then((res) => this._getResponseData(res));
   }
 
-  likeHandler(cardId, isAlreadyLiked) {
+  setCardLikeStatus(cardId, isAlreadyLiked) {
     if (isAlreadyLiked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         headers: this._headers,

@@ -6,7 +6,7 @@ export default class PopupWithConfirmation extends Popup {
     this._button = this._popup.querySelector(".form__submit");
     this.setCallback = this.setCallback.bind(this);
   }
-  
+
   setCallback(submitCB) {
     this._handleSubmit = submitCB;
   }

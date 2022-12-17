@@ -114,14 +114,22 @@ avatarPopup.setEventListeners();
 penButtonProfileImage.addEventListener("click", avatarPopup.open);
 
 // Mesto popup opening and closing logic
+let userId;
+api
+  .getUserInfo()
+  .then((res) => {
+    userId = res._id;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 const cardsContainer = new Section(
   {
     renderer: (cardData) => {
       const card = new Card(
-        "62c4daea2d2ca20c1aee6e8b",
+        userId,
         cardData,
-        cardData.name,
-        cardData.link,
         "#photo-grid__item",
         popupImageHandler.open,
         cardData.likes.length,
@@ -141,7 +149,7 @@ const cardsContainer = new Section(
         },
         () => {
           api
-            .likeHandler(cardData._id, true)
+            .setCardLikeStatus(cardData._id, true)
             .then((res) => {
               card.updateLikes(res);
             })
@@ -151,23 +159,14 @@ const cardsContainer = new Section(
         },
         () => {
           api
-            .likeHandler(cardData._id, false)
+            .setCardLikeStatus(cardData._id, false)
             .then((res) => {
               card.updateLikes(res);
             })
             .catch((err) => {
               console.log(err);
             });
-        },
-        () => {
-          api
-            .getUserInfo()
-            .then((resUser) => {
-              card.deleteButtonHandler(resUser, cardData);
-            })
-            .catch((err) => {
-              console.log(err);
-            })}
+        }
       );
       const cardElement = card.generateCard();
       cardsContainer.addItem(cardElement);

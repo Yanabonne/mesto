@@ -115,15 +115,6 @@ penButtonProfileImage.addEventListener("click", avatarPopup.open);
 
 // Mesto popup opening and closing logic
 let userId;
-api
-  .getUserInfo()
-  .then((res) => {
-    userId = res._id;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 const cardsContainer = new Section(
   {
     renderer: (cardData) => {
@@ -205,6 +196,8 @@ plusButton.addEventListener("click", function () {
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
+    userId = userData._id
+
     userInfoElement.setUserInfo({
       popupName: userData.name,
       popupDescription: userData.about,
